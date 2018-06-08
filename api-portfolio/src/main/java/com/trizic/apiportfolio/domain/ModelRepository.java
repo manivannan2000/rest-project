@@ -14,6 +14,8 @@ public interface ModelRepository extends CrudRepository<Model, Long> {
 
 	List<Model> findByAdvisorId(String advisorId);
 	
+	Page<Model> findByAdvisorId(String advisorId, Pageable pageable);	
+	
 	List<Model> findByName(String name);
 	
 

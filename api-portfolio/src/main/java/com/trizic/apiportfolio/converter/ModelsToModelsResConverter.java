@@ -42,6 +42,8 @@ public class ModelsToModelsResConverter implements Converter<List<Model>, Models
 			modelsRes.getPage().add(modelRes);
 		}
 		
+		modelsRes.setTotalNumberOfElements(modelsRes.getPage().size());
+		
 		return modelsRes;
 	}
 

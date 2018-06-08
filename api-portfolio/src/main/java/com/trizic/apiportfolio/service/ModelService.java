@@ -53,6 +53,7 @@ public class ModelService {
 	}
 	
 	
+	@Transactional
 	public ModelRes createOrUpdateModel(String advisorId, ModelReq modelReq){
     	List<Advisor> advisorList= advisorRepository.findByAdvisorId(advisorId);
     	ModelRes modelRes=null;
@@ -100,19 +101,25 @@ public class ModelService {
 	
 	@Transactional(readOnly = true)
 	public ModelsRes findModels(String advisorId, Integer pageNumber, Integer pageSize) {
-
+		
+		Integer pageNumberConsidered=pageNumber != null ? pageNumber : 0;
+		Integer pageSizeConsidered=pageSize != null  && pageSize.compareTo(Integer.valueOf(0))>0? pageSize : 10;
+		
 		List<Advisor> advisorList = advisorRepository.findByAdvisorId(advisorId);
 
 		if (advisorList.size() == 0) {
 			throw new AdvisorNotFoundException("advisor.not.found");
 		}
 
-		Page<Model> pages = modelRepository.findAll(PageRequest.of(pageNumber != null ? pageNumber : 0,
-				pageSize != null ? pageSize : 10, Sort.Direction.ASC, "advisorId"));
+		Page<Model> pages = modelRepository.findByAdvisorId(advisorId, PageRequest.of(pageNumberConsidered,
+				pageSizeConsidered, Sort.Direction.ASC, "advisorId"));
 
 		List<Model> models = pages.getContent();
 
 		ModelsRes modelsRes = conversionService.convert(models, ModelsRes.class);
+		modelsRes.setPageNumber(pageNumberConsidered);
+		modelsRes.setPageSize(pageSizeConsidered);
+		modelsRes.setNumberOfPages(modelsRes.getTotalNumberOfElements()<pageSizeConsidered? 1: Math.round(modelsRes.getTotalNumberOfElements()/pageSizeConsidered));
 
 		return modelsRes;
 
