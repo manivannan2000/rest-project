@@ -54,6 +54,10 @@ public class Model implements Serializable{
 	@Enumerated(EnumType.STRING)
 	private RebalanceFrequency rebalanceFrequency;
 	
+	@Column(nullable = false)
+    private String advisorId;
+	
+	
 	@OneToMany(
 	        mappedBy = "model", 
 	        cascade = CascadeType.ALL, 
@@ -135,6 +139,14 @@ public class Model implements Serializable{
 		this.rebalanceFrequency = rebalanceFrequency;
 	}
 
+	public String getAdvisorId() {
+		return advisorId;
+	}
+
+	public void setAdvisorId(String advisorId) {
+		this.advisorId = advisorId;
+	}
+
 	public List<AssetAllocation> getAssetAllocations() {
 		return assetAllocations;
 	}
@@ -151,6 +163,20 @@ public class Model implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (!(o instanceof Model )) return false;
+	
+		return guid != null && guid.equals(((Model) o).guid);
+	}
+
+	@Override
+	public int hashCode() {
+		return 33;
+	}	
+	
 
 }
 

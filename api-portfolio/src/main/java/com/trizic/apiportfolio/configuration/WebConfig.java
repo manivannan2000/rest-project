@@ -6,6 +6,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.trizic.apiportfolio.converter.ModelReqToModelConverter;
 import com.trizic.apiportfolio.converter.ModelToModelResConverter;
+import com.trizic.apiportfolio.converter.ModelsToModelsResConverter;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer{
@@ -14,5 +15,6 @@ public class WebConfig implements WebMvcConfigurer{
     public void addFormatters(FormatterRegistry registry) {
         registry.addConverter(new ModelReqToModelConverter());
         registry.addConverter(new ModelToModelResConverter());
+        registry.addConverter(new ModelsToModelsResConverter());
     }
 }

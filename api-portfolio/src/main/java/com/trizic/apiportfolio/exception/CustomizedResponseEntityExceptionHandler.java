@@ -18,8 +18,15 @@ public class CustomizedResponseEntityExceptionHandler {
 	}	
 
 	@ExceptionHandler(AdvisorNotFoundException.class)
-	public final ResponseEntity<ErrorDetails> handleUserNotFoundException(AdvisorNotFoundException ex, WebRequest request) {
+	public final ResponseEntity<ErrorDetails> handleAdvisorNotFoundException(AdvisorNotFoundException ex, WebRequest request) {
 		ErrorDetails errorDetails = new ErrorDetails(ex.getMessage());
 		return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(InvalidTotalAllocationException.class)
+	public final ResponseEntity<ErrorDetails> handleInvalidTotalAllocationException(AdvisorNotFoundException ex, WebRequest request) {
+		ErrorDetails errorDetails = new ErrorDetails(ex.getMessage());
+		return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+	}
+	
 }

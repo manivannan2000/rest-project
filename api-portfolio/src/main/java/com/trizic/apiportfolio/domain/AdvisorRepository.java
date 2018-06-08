@@ -12,5 +12,5 @@ public interface AdvisorRepository extends CrudRepository<Advisor, Long> {
 	
 	Page<Advisor> findAll(Pageable pageable);
 	
-	List<Advisor> findByPlannerId(String plannerId);
+	List<Advisor> findByAdvisorId(String advisorId);
 }

@@ -31,7 +31,7 @@ public class Advisor implements Serializable{
 	@Id
 	@GeneratedValue(generator="system-uuid")
 	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	private String plannerId;
+	private String advisorId;
 	
 
 	@Column(nullable = false)
@@ -41,9 +41,6 @@ public class Advisor implements Serializable{
 	private String userId;
 	
 	
-	@OneToMany
-	private List<Model> cities; 	
-
 	protected Advisor() {
 		// no-args constructor required by JPA spec
 		// this one is protected since it shouldn't be used directly
@@ -54,6 +51,10 @@ public class Advisor implements Serializable{
 		this.userId = userId;
 	}
 	
+	public String getAdvisorId() {
+		return advisorId;
+	}
+	
 	public String getName() {
 		return this.name;
 	}
@@ -61,13 +62,4 @@ public class Advisor implements Serializable{
 	public String getUserId() {
 		return this.userId;
 	}
-	
-	public List<Model> getCities() {
-		return cities;
-	}
-	
-	public String getPlannerId() {
-		return plannerId;
-	}
-	
 }
