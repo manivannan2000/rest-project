@@ -19,17 +19,17 @@ mvn spring-boot:run
 
 ### Supporting API
 
-This application is designed in such a way that advisors are pre-loaded independently and then models are created and associated with the  advisors. So , during application startup, two default advisors are created. More advisors can be added during runtime with admin access. To identify list of advisors , use following API Get call with admin login.
+This application is designed in such a way that advisors are pre-loaded independently and then models are created and associated with the  advisors. So , during application startup, two default advisors are created. More advisors can be added during runtime with admin API. To identify list of advisors and their advisorID to be used in other APIs, use following API Get call response.
 
 ```
-curl -u admin:admin http://localhost:8080/admin/api/v1/advisors
+curl http://localhost:8080/admin/api/v1/advisors
 ```
 
 ### For core APIs
 Advisor IDs can be copied from above admin API response and other core APIs can be triggered as follows
 
 ```
-curl -u advisor1:advisor1 -X PUT @model.req.json http://localhost:8080/admin/api/v1/advisors
+curl -X PUT @model.req.json http://localhost:8080/api/v1/advisor/{advisorId}/model
 ```
 
  
